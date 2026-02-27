@@ -1,3 +1,4 @@
+import { ServerError } from "../errors/server-error";
 import { HttpStatusCode, type HttpResponse } from "../protocols/http";
 
 export function badRequest(error: Error): HttpResponse {
@@ -14,9 +15,9 @@ export function noContent(): HttpResponse {
   };
 }
 
-export function serverError(error: Error): HttpResponse {
+export function serverError(): HttpResponse {
   return {
     statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
-    body: error,
+    body: new ServerError(),
   };
 }
