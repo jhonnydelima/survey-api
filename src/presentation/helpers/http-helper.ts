@@ -13,3 +13,10 @@ export function noContent(): HttpResponse {
     body: null,
   };
 }
+
+export function serverError(error: Error): HttpResponse {
+  return {
+    statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
+    body: error,
+  };
+}
