@@ -1,5 +1,5 @@
-import { ServerError } from "../errors/server-error";
-import { HttpStatusCode, type HttpResponse } from "../protocols/http";
+import { ServerError } from "../errors";
+import { HttpStatusCode, type HttpResponse } from "../protocols";
 
 export function badRequest(error: Error): HttpResponse {
   return {
