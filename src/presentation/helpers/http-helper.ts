@@ -21,3 +21,10 @@ export function serverError(): HttpResponse {
     body: new ServerError(),
   };
 }
+
+export function ok<T>(data: T): HttpResponse {
+  return {
+    statusCode: HttpStatusCode.OK,
+    body: data,
+  };
+}
