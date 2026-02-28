@@ -76,14 +76,14 @@ describe("DbAddAccount UseCase", () => {
     const { sut, addAccountRepositoryStub } = makeSut();
     const addSpy = jest.spyOn(addAccountRepositoryStub, "add");
     const accountData = {
-      name: "any_name",
-      email: "any_email@email.com",
-      password: "any_password",
+      name: "valid_name",
+      email: "valid_email@email.com",
+      password: "hashed_password",
     };
     await sut.add(accountData);
     expect(addSpy).toHaveBeenCalledWith({
-      name: "any_name",
-      email: "any_email@email.com",
+      name: "valid_name",
+      email: "valid_email@email.com",
       password: "hashed_password",
     });
   });
@@ -99,5 +99,21 @@ describe("DbAddAccount UseCase", () => {
       password: "any_password",
     };
     await expect(sut.add(accountData)).rejects.toThrow();
+  });
+
+  it("should return an account on success", async () => {
+    const { sut } = makeSut();
+    const accountData = {
+      name: "valid_name",
+      email: "valid_email@email.com",
+      password: "hashed_password",
+    };
+    const account = await sut.add(accountData);
+    expect(account).toEqual({
+      id: "valid_id",
+      name: "valid_name",
+      email: "valid_email@email.com",
+      password: "hashed_password",
+    });
   });
 });
