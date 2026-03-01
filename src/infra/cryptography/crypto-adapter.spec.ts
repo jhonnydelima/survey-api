@@ -25,4 +25,13 @@ describe("CryptoAdapter", () => {
     const result = await sut.encrypt("any_value");
     expect(result).toBe("hashed_value");
   });
+
+  it("should throw if encrypt throws", async () => {
+    const sut = makeSut();
+    jest
+      .spyOn(crypto, "hash")
+      .mockReturnValueOnce(Promise.reject(new Error()) as any);
+    const promise = sut.encrypt("any_value");
+    await expect(promise).rejects.toThrow();
+  });
 });
